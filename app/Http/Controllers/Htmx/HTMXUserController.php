@@ -16,7 +16,7 @@ class HTMXUserController extends Controller
 
         $userFeedNavbarItems = Helpers::userFeedNavbarItems($user);
 
-        if (auth()->user()->following($user)) {
+        if (auth()->user() && auth()->user()->following($user)) {
             $isUserFollowed = true;
         }
 
