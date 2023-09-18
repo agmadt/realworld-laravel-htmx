@@ -1,7 +1,3 @@
-@php
-  use Illuminate\Support\Str;
-@endphp
-
 @if ($paginator->hasPages())
   <nav id="feed-pagination" hx-swap-oob="true">
     <ul class="pagination">
