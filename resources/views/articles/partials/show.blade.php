@@ -51,6 +51,13 @@
       <div class="col-md-12">
         {{ $article->body }}
       </div>
+      <div class="col-md-12 m-t-2">
+        <ul class="tag-list">
+          @foreach ($article->tags as $tag)
+            <li class="tag-default tag-pill tag-outline">{{ $tag->name }}</li>
+          @endforeach
+        </ul>
+      </div>
     </div>
 
     <hr />

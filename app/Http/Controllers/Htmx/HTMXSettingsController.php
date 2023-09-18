@@ -51,6 +51,7 @@ class HTMXSettingsController extends Controller
         .view('settings.partials.form-message', [
             'message' => 'Successfully updated.',
             'oob_swap' => true
-        ]);
+        ])
+        .view('components.navbar', ['navbar_active' => 'settings']);
     }
 }

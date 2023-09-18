@@ -35,7 +35,16 @@
       >
         <h1>{{ $article->title }}</h1>
         <p>{{ $article->description }}</p>
-        <span>Read more...</span>
+
+        <div>
+          <span>Read more...</span>
+
+          <ul class="tag-list">
+            @foreach ($article->tags as $tag)
+              <li class="tag-default tag-pill tag-outline">{{ $tag->name }}</li>
+            @endforeach
+          </ul>
+        </div>
       </a>
     </div>
   @empty
