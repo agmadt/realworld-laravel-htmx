@@ -11,6 +11,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         $isUserFollowed = false;
+        $navbarActive = 'none';
         $user->load(['articles', 'followers']);
 
         $userFeedNavbarItems = Helpers::userFeedNavbarItems($user);
@@ -19,9 +20,13 @@ class UserController extends Controller
             $isUserFollowed = true;
         }
 
+        if ($user->isSelf) {
+            $navbarActive = 'profile';
+        }
+
         return view('users.show', [
             'user' => $user,
-            'navbar_active' => 'profile',
+            'navbar_active' => $navbarActive,
             'user_feed_navbar_items' => $userFeedNavbarItems,
             'follower_count' => $user->followers->count(),
             'is_followed' => $isUserFollowed,

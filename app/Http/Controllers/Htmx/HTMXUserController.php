@@ -12,12 +12,17 @@ class HTMXUserController extends Controller
     public function show(User $user)
     {
         $isUserFollowed = false;
+        $navbarActive = 'none';
         $user->load(['articles', 'followers']);
 
         $userFeedNavbarItems = Helpers::userFeedNavbarItems($user);
 
-        if (auth()->user() && auth()->user()->following($user)) {
+        if (auth()->check() && auth()->user()->following($user)) {
             $isUserFollowed = true;
+        }
+
+        if ($user->isSelf) {
+            $navbarActive = 'profile';
         }
 
         return view('users.partials.show', [
@@ -27,7 +32,7 @@ class HTMXUserController extends Controller
                 'follower_count' => $user->followers->count(),
                 'is_followed' => $isUserFollowed
             ])
-            .view('components.navbar', ['navbar_active' => 'profile']);
+            .view('components.navbar', ['navbar_active' => $navbarActive]);
     }
 
     public function articles(User $user)
