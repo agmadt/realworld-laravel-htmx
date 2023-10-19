@@ -55,7 +55,7 @@ class Helpers
                 'hx_trigger' => 'load',
             ])
             ->withHeaders([
-                'HX-Push-Url' => '/',
+                'HX-Replace-Url' => '/',
                 'HX-Reswap' => 'none'
             ]);
     }

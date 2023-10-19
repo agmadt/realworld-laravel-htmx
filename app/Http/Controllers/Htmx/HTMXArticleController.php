@@ -14,7 +14,7 @@ class HTMXArticleController extends Controller
     public function show(Article $article)
     {
         $isArticleFavoritedByUser = false;
-        $article->load(['favoritedUsers', 'user.followers']);
+        $article->load(['tags', 'favoritedUsers', 'user.followers']);
 
         if (auth()->check()) {
             $isArticleFavoritedByUser = $article->favoritedByUser(auth()->user());
