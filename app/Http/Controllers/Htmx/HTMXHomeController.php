@@ -35,7 +35,7 @@ class HTMXHomeController extends Controller
 
     public function yourFeed()
     {
-        $articles = Article::with(['user', 'tags', 'favoritedUsers']);
+        $articles = Article::with(['user', 'tags', 'favoritedUsers'])->orderBy('id', 'desc');
 
         $feedNavbarItems = Helpers::feedNavbarItems();
         $feedNavbarItems['personal']['is_active'] = true;
@@ -55,7 +55,7 @@ class HTMXHomeController extends Controller
 
     public function globalFeed()
     {
-        $articles = Article::with(['user', 'tags', 'favoritedUsers']);
+        $articles = Article::with(['user', 'tags', 'favoritedUsers'])->orderBy('id', 'desc');
 
         $feedNavbarItems = Helpers::feedNavbarItems();
         $feedNavbarItems['global']['is_active'] = true;
@@ -79,6 +79,7 @@ class HTMXHomeController extends Controller
             ->whereHas('tags', function($q) use ($tag) {
                 $q->where('id', $tag->id);
             })
+            ->orderBy('id', 'desc')
             ->paginate(5);
 
         $feedNavbarItems = Helpers::feedNavbarItems();
