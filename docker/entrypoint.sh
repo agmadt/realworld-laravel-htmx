@@ -14,6 +14,12 @@ if [ -z "$APP_KEY" ]; then
 fi
 
 php artisan migrate --force --no-interaction
+
+if [ ! -f /app/database/.seed_done ]; then
+    php artisan db:seed --force --no-interaction
+    touch /app/database/.seed_done
+fi
+
 php artisan config:cache
 php artisan route:cache
 php artisan storage:link --force --no-interaction 2>/dev/null || true
