@@ -13,9 +13,7 @@ if [ -z "$APP_KEY" ]; then
     fi
 fi
 
-if [ ! -f /app/database/conduit.sqlite ]; then
-    cp /app/conduit.sqlite /app/database/conduit.sqlite
-fi
+cp /app/conduit.sqlite /app/database/conduit.sqlite
 
 php artisan migrate --force --no-interaction
 
