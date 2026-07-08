@@ -13,12 +13,11 @@ if [ -z "$APP_KEY" ]; then
     fi
 fi
 
-php artisan migrate --force --no-interaction
-
-if [ ! -f /app/database/.seed_done ]; then
-    php artisan db:seed --force --no-interaction
-    touch /app/database/.seed_done
+if [ ! -f /app/database/conduit.sqlite ]; then
+    cp /app/conduit.sqlite /app/database/conduit.sqlite
 fi
+
+php artisan migrate --force --no-interaction
 
 php artisan config:cache
 php artisan route:cache
