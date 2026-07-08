@@ -18,7 +18,7 @@ WORKDIR /app
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN composer install --no-dev --no-scripts --no-interaction
 
 COPY . .
 COPY --from=assets /build/public/build ./public/build
@@ -27,7 +27,8 @@ COPY docker/nginx.conf /etc/nginx/http.d/default.conf
 COPY docker/supervisord.conf /etc/supervisord.conf
 COPY docker/entrypoint.sh /entrypoint.sh
 
-RUN chmod +x /entrypoint.sh \
+RUN composer dump-autoload --optimize --no-dev --no-scripts \
+    && chmod +x /entrypoint.sh \
     && mkdir -p /run/nginx \
     && chown -R www-data:www-data storage bootstrap/cache database
 
